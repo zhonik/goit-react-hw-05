@@ -1,0 +1,14 @@
+.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 96px 64px;
+  margin-top: 96px;
+  color: red;
+
+  text-align: center;
+
+  font-family: Montserrat, sans-serif;
+  font-size: 38px;
+  letter-spacing: 0.03em;
+}

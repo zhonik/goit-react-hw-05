@@ -1,0 +1,36 @@
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  row-gap: 12px;
+  column-gap: 12px;
+}
+
+.poster {
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  max-width: 100%;
+  width: 200px;
+  height: auto;
+
+  transition: transform 500ms ease-in-out;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.item {
+  width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.img {
+  height: 300px;
+  object-fit: cover;
+}
