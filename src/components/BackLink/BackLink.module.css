@@ -1,0 +1,15 @@
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  width: max-content;
+  padding: 8px 0;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  text-transform: uppercase;
+
+  &:hover {
+    color: orangered;
+  }
+}

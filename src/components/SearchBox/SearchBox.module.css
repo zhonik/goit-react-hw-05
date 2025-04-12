@@ -1,0 +1,51 @@
+.wrapper {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.form {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 24px;
+}
+
+.input {
+  padding: 8px 32px 8px 8px;
+  /* margin-right: 4px; */
+  border: 1px solid #fff;
+  border-radius: 4px;
+  font: inherit;
+
+  outline: none;
+  &:focus {
+    border-color: orangered;
+  }
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 32px 8px 8px;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  font: inherit;
+  outline: none;
+  background-color: rgba(128, 128, 128, 0.09);
+
+  &:hover {
+    background-color: orangered;
+    border-color: orangered;
+  }
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  /* position: absolute;
+  bottom: 25%;
+  right: 6px; */
+}

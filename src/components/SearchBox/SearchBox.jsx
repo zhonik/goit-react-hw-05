@@ -1,0 +1,37 @@
+import { HiSearch } from 'react-icons/hi';
+import css from './SearchBox.module.css';
+import { useEffect, useState } from 'react';
+
+export const SearchBox = ({ value, onChange }) => {
+  const [query, setQuery] = useState('');
+
+  useEffect(() => {
+    setQuery(value);
+  }, [value]);
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    setQuery(e.target.value);
+
+    if (query.trim() === '') return;
+
+    onChange(query);
+    setQuery('');
+  };
+  return (
+    <div className={css.wrapper}>
+      <form onSubmit={handleSubmit} className={css.form}>
+        <input
+          className={css.input}
+          type='text'
+          value={query}
+          onChange={e => setQuery(e.target.value)}
+        />
+        <button className={css.button} type='submit'>
+          Search
+          <HiSearch className={css.icon} />
+        </button>
+      </form>
+    </div>
+  );
+};
