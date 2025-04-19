@@ -1,13 +1,9 @@
 import { HiSearch } from 'react-icons/hi';
 import css from './SearchBox.module.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-export const SearchBox = ({ value, onChange }) => {
+export const SearchBox = ({ onChange }) => {
   const [query, setQuery] = useState('');
-
-  useEffect(() => {
-    setQuery(value);
-  }, [value]);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -15,7 +11,7 @@ export const SearchBox = ({ value, onChange }) => {
 
     if (query.trim() === '') return;
 
-    onChange(query);
+    onChange(query.trim());
     setQuery('');
   };
   return (

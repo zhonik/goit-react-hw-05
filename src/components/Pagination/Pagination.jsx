@@ -34,7 +34,7 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
       {pages.map((page, index) => (
         <span
           key={index}
-          className={clsx(css.pageNumber, currentPage === page ? 'active' : '')}
+          className={clsx(css.pageNumber, currentPage === page ? css.active : '')}
           onClick={() => typeof page === 'number' && onPageChange(page)}
         >
           {page}

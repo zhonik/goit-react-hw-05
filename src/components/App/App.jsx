@@ -7,25 +7,22 @@ import NotFoundPage from '../../pages/NotFoundPage/NotFoundPage';
 import Navigation from '../Navigation/Navigation';
 import MovieCast from '../MovieCast/MovieCast';
 import MovieReviews from '../MovieReviews/MovieReviews';
-import { DataProvider } from '../DataContext/DataContext';
 
 const App = () => {
   return (
-    <DataProvider>
-      <div className={css.container}>
-        <Navigation />
+    <div className={css.container}>
+      <Navigation />
 
-        <Routes>
-          <Route path='/' element={<HomePage />} />
-          <Route path='/movies' element={<MoviesPage />}>
-            <Route path='cast' element={<MovieCast />} />
-            <Route path='reviews' element={<MovieReviews />} />
-          </Route>
-          <Route path='/movies/:movieId' element={<MovieDetailsPage />} />
-          <Route path='*' element={<NotFoundPage />} />
-        </Routes>
-      </div>
-    </DataProvider>
+      <Routes>
+        <Route path='/' element={<HomePage />} />
+        <Route path='/movies' element={<MoviesPage />} />
+        <Route path='/movies/:movieId' element={<MovieDetailsPage />}>
+          <Route path='cast' element={<MovieCast />} />
+          <Route path='reviews' element={<MovieReviews />} />
+        </Route>
+        <Route path='*' element={<NotFoundPage />} />
+      </Routes>
+    </div>
   );
 };
 

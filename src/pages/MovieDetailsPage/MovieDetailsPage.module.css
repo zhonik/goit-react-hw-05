@@ -5,8 +5,8 @@
   gap: 48px;
 }
 
-.movieDetails {
-}
+/* .movieDetails {
+} */
 
 .title {
   font-size: 36px;
@@ -28,4 +28,11 @@
 
 .span {
   font-weight: 400;
+}
+
+img {
+  width: 300px;
+  height: 450px;
+  object-fit: cover;
+  border-radius: 10px;
 }

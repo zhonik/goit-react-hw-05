@@ -1,24 +1,41 @@
-import { useContext, useEffect } from 'react';
-import css from './HomePage.module.css';
-import { NavLink, useSearchParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+// import css from './HomePage.module.css';
+import { useSearchParams } from 'react-router-dom';
 import Pagination from '../../components/Pagination/Pagination';
 import Loader from '../../components/Loader/Loader';
-import { DataContext } from '../../components/DataContext/DataContext';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import MoviesList from '../../components/MoviesList/MoviesList';
+import { getTrendingMovies } from '../../movie-api';
 
 const HomePage = () => {
-  const { movies, setUrl, isLoading, setCurrentPage, totalPages, currentPage, error } =
-    useContext(DataContext);
+  const [movies, setMovies] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const pageFromParams = Number(searchParams.get('page')) || 1;
 
   useEffect(() => {
-    const url = '/3/trending/movie/week';
-    setUrl(url);
-    setCurrentPage(pageFromParams);
-  }, [pageFromParams, setCurrentPage, setUrl]);
+    const fetchMovies = async () => {
+      try {
+        setIsLoading(true);
+        const { results, total_pages } = await getTrendingMovies(currentPage);
+        setMovies(results);
+        setTotalPages(total_pages);
+        setCurrentPage(pageFromParams);
+        console.log(results);
+      } catch (error) {
+        setError(error);
+        console.error(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchMovies();
+  }, [currentPage, pageFromParams]);
 
   const handlePageChange = page => {
     setCurrentPage(page);
@@ -32,11 +49,13 @@ const HomePage = () => {
       {isLoading && <Loader />}
       {movies && <MoviesList movies={movies} />}
       {error && <ErrorMessage />}
-      <Pagination
-        totalPages={totalPages}
-        currentPage={currentPage}
-        onPageChange={handlePageChange}
-      />
+      {!isLoading && (
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+        />
+      )}
     </main>
   );
 };

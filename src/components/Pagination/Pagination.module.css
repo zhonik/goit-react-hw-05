@@ -24,6 +24,7 @@
 .pageNumber:hover {
   background-color: orangered;
   color: black;
+  border: 1px solid black;
 }
 
 .pageNumber.disabled {
