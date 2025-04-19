@@ -51,6 +51,12 @@ img {
   text-decoration: none;
   color: #fff;
   font-weight: 500;
+
+  transition: background-color 400ms ease-in-out;
+
+  &:hover {
+    background-color: orangered;
+  }
 }
 
 .active {
