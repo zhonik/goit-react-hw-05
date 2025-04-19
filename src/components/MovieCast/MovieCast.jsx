@@ -10,19 +10,14 @@ const MovieCast = () => {
   const [error, setError] = useState(null);
   const { movieId } = useParams();
 
-  // useEffect(() => {
-  //   const url = `/3/movie/${movieId}/credits`;
-  //   setUrl(url);
-  //   console.log(movieCast);
-  // }, [movieCast, movieId, setUrl]);
-
   useEffect(() => {
+    if (!movieId) return;
+
     const fetchMovies = async () => {
       try {
         setIsLoading(true);
         const { cast } = await getMovieCast(movieId);
         setMovieCast(cast);
-        console.log(cast);
       } catch (error) {
         setError(error);
         console.error(error);
@@ -44,15 +39,16 @@ const MovieCast = () => {
         <ul className={css.list}>
           {movieCast.map(({ cast_id, character, name, profile_path }) => (
             <li key={cast_id} className={css.item}>
-              <h3 className={css.title}>{character}</h3>
-
               <img
                 src={profile_path ? `https://image.tmdb.org/t/p/w200${profile_path}` : defaultImg}
                 alt={name}
                 className={css.img}
               />
 
-              <h3 className={css.name}>{name}</h3>
+              <div className={css.titleBox}>
+                <h3 className={css.name}>{name}</h3>
+                <h4 className={css.title}>{character}</h4>
+              </div>
             </li>
           ))}
         </ul>

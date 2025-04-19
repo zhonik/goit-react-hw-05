@@ -3,10 +3,9 @@
   align-items: start;
   justify-content: start;
   gap: 48px;
-}
 
-/* .movieDetails {
-} */
+  margin-bottom: 32px;
+}
 
 .title {
   font-size: 36px;
@@ -35,4 +34,26 @@ img {
   height: 450px;
   object-fit: cover;
   border-radius: 10px;
+}
+
+.outletList {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+
+  margin-bottom: 24px;
+}
+
+.link {
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+}
+
+.active {
+  color: white;
+  background-color: orangered;
 }

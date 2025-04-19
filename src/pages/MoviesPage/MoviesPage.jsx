@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-// import css from './MoviesPage.module.css';
 import { SearchBox } from '../../components/SearchBox/SearchBox';
 import MoviesList from '../../components/MoviesList/MoviesList';
 import Loader from '../../components/Loader/Loader';
@@ -20,6 +19,8 @@ const MoviesPage = () => {
   const pageFromParams = Number(searchParams.get('page')) || 1;
 
   useEffect(() => {
+    if (!movieQuery) return;
+
     const fetchMovies = async () => {
       try {
         setIsLoading(true);
@@ -28,8 +29,6 @@ const MoviesPage = () => {
         const { results, total_pages } = await getMovies(pageFromParams, movieQuery);
         setMovies(results);
         setTotalPages(total_pages);
-
-        console.log(results);
       } catch (error) {
         setError(error);
         console.error(error);

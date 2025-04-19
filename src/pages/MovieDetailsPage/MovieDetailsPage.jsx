@@ -1,10 +1,15 @@
-import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import { NavLink, Outlet, useLocation, useParams } from 'react-router-dom';
 import css from './MovieDetailsPage.module.css';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { BackLink } from '../../components/BackLink/BackLink';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { getMovieDetails } from '../../movie-api';
 import Loader from '../../components/Loader/Loader';
+import clsx from 'clsx';
+
+const buildLinkClass = ({ isActive }) => {
+  return clsx(css.link, isActive && css.active);
+};
 
 const MovieDetailsPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -14,14 +19,13 @@ const MovieDetailsPage = () => {
   const location = useLocation();
   const { movieId } = useParams();
 
-  const backLinkHref = location.state ?? '/movies';
+  const backLinkHref = useRef(location.state ?? '/movies');
 
   useEffect(() => {
     const fetchMovies = async () => {
       try {
         setIsLoading(true);
-
-        const movieDetails = await getMovieDetails(movieId); // закінчив тут, потрібно доналаштувати МувіДетейлс
+        const movieDetails = await getMovieDetails(movieId);
         setMovies(movieDetails);
       } catch (error) {
         setError(error);
@@ -54,10 +58,10 @@ const MovieDetailsPage = () => {
 
   return (
     <>
-      <BackLink to={backLinkHref}>Back to movies</BackLink>
+      <BackLink to={backLinkHref.current}>Back to movies</BackLink>
       {error && <ErrorMessage />}
       {isLoading && <Loader />}
-      {!isLoading && (
+      {!isLoading && !error && (
         <div className={css.container}>
           <img
             src={poster_path ? `https://image.tmdb.org/t/p/w300${poster_path}` : defaultImg}
@@ -65,7 +69,7 @@ const MovieDetailsPage = () => {
           />
 
           {movies && (
-            <div className={css.movieDetails}>
+            <div>
               {title && <h1 className={css.title}>{title}</h1>}
               {original_title && <p className={css.subtitle}>{original_title}</p>}
 
@@ -111,19 +115,23 @@ const MovieDetailsPage = () => {
         </div>
       )}
 
-      <ul>
-        <li>
-          <Link to='cast' state={location.state}>
-            Cast
-          </Link>
-        </li>
-        <li>
-          <Link to='reviews' state={location.state}>
-            Reviews
-          </Link>
-        </li>
-      </ul>
-      <Outlet />
+      {!isLoading && !error && (
+        <ul className={css.outletList}>
+          <li className={css.outletItem}>
+            <NavLink to='cast' state={location.state} className={buildLinkClass}>
+              Cast
+            </NavLink>
+          </li>
+          <li className={css.outletItem}>
+            <NavLink to='reviews' state={location.state} className={buildLinkClass}>
+              Reviews
+            </NavLink>
+          </li>
+        </ul>
+      )}
+      <Suspense fallback={<div>Loading subpage...</div>}>
+        <Outlet />
+      </Suspense>
     </>
   );
 };

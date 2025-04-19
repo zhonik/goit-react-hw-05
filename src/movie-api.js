@@ -9,30 +9,25 @@ axios.defaults.headers = {
 
 export const getTrendingMovies = async page => {
   const response = await axios.get(`/3/trending/movie/week?page=${page}`);
-  console.log(response.data);
   return response.data;
 };
 
 export const getMovies = async (page, query) => {
   const response = await axios.get(`/3/search/movie?page=${page}&query=${query}`);
-  console.log(response.data);
   return response.data;
 };
 
 export const getMovieDetails = async id => {
   const response = await axios.get(`/3/movie/${id}`);
-  console.log(response.data);
   return response.data;
 };
 
 export const getMovieReviews = async id => {
   const response = await axios.get(`/3/movie/${id}/reviews`);
-  console.log(response.data);
   return response.data;
 };
 
 export const getMovieCast = async id => {
   const response = await axios.get(`/3/movie/${id}/credits`);
-  console.log(response.data);
   return response.data;
 };

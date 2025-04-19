@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { format } from 'date-fns';
 import { getMovieReviews } from '../../movie-api';
 import Loader from '../Loader/Loader';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 const MovieReviews = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -12,12 +13,13 @@ const MovieReviews = () => {
   const { movieId } = useParams();
 
   useEffect(() => {
+    if (!movieId) return;
+
     const fetchMovies = async () => {
       try {
         setIsLoading(true);
         const { results } = await getMovieReviews(movieId);
         setReviews(results);
-        console.log(results);
       } catch (error) {
         setError(error);
         console.error(error);
@@ -34,6 +36,7 @@ const MovieReviews = () => {
 
   return (
     <>
+      {error && <ErrorMessage />}
       {isLoading && <Loader />}
       {!error && !isLoading && (
         <ul className={css.list}>
@@ -50,9 +53,9 @@ const MovieReviews = () => {
                     />
 
                     <div>
-                      <div>
-                        <h3 className={css.title}>{author}</h3>
-                        <span>{format(new Date(created_at), 'PPpp')}</span>
+                      <div className={css.title}>
+                        <h3>{author}</h3>
+                        <span className={css.date}>{format(new Date(created_at), 'PPpp')}</span>
                       </div>
                       <p className={css.content}>{content}</p>
                     </div>

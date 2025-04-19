@@ -9,7 +9,7 @@ export const SearchBox = ({ onChange }) => {
     e.preventDefault();
     setQuery(e.target.value);
 
-    if (query.trim() === '') return;
+    if (query === '') return;
 
     onChange(query.trim());
     setQuery('');

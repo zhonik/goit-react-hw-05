@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-// import css from './HomePage.module.css';
 import { useSearchParams } from 'react-router-dom';
 import Pagination from '../../components/Pagination/Pagination';
 import Loader from '../../components/Loader/Loader';
@@ -25,7 +24,6 @@ const HomePage = () => {
         setMovies(results);
         setTotalPages(total_pages);
         setCurrentPage(pageFromParams);
-        console.log(results);
       } catch (error) {
         setError(error);
         console.error(error);

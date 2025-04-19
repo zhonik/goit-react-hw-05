@@ -8,9 +8,11 @@
 
 .pageNumber {
   padding: 5px 10px;
-  border: 1px solid #ccc;
+  border: 1px solid inherit;
   border-radius: 5px;
   cursor: pointer;
+
+  font-size: 16px;
 
   transition: background-color 250ms ease-in-out, color 250ms ease-in-out, border 250ms ease-in-out;
 }
@@ -18,13 +20,12 @@
 .pageNumber.active {
   background-color: orangered;
   color: white;
-  border: 1px solid orangered;
+  border: 2px solid orangered;
 }
 
 .pageNumber:hover {
   background-color: orangered;
-  color: black;
-  border: 1px solid black;
+  color: white;
 }
 
 .pageNumber.disabled {
